@@ -11,11 +11,23 @@ app.use(cors());
 const repositories = [];
 
 app.get("/repositories", (request, response) => {
-  // TODO
+  const { id, title, url, techs, likes } = request.query;
+
+  const results = title
+    ? projects.filter(project => project.title.includes(title))
+    : projects
+
+  return response.json(results);
 });
 
 app.post("/repositories", (request, response) => {
-  // TODO
+  const { title, url, techs } = request.body;
+
+  const project = { id: uuid(), title, url, techs, likes: 0 };
+
+  projects.push(project);
+
+  return response.json(project);
 });
 
 app.put("/repositories/:id", (request, response) => {
